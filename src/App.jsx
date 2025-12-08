@@ -4,6 +4,7 @@ import { GoArrowUpRight } from "react-icons/go";
 import logo from "./assets/logo.png"
 import LetterGlitch from './components/LetterGlitch';
 import FuzzyText from './components/FuzzyText';
+import {GridScan} from './components/GridScan';
 
 
 const App = () => {
@@ -39,38 +40,76 @@ const App = () => {
   ];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* Background Layer */}
-      <div className="absolute inset-0 w-full h-full">
-        <LetterGlitch
-          glitchSpeed={40}
-          centerVignette={true}
-          outerVignette={true}
-          smooth={true}
+    <div className="relative w-full overflow-hidden flex flex-col">
+      {/* Section 1: Hero/Header dengan LetterGlitch */}
+      <div className="relative w-full min-h-screen">
+        {/* Background LetterGlitch */}
+        <div className="absolute inset-0 w-full h-[90%]">
+          <LetterGlitch
+            glitchSpeed={40}
+            centerVignette={true}
+            outerVignette={true}
+            smooth={true}
+          />
+        </div>
+
+        {/* Navigation */}
+        <CardNav
+          logo={logo}
+          logoAlt="Company Logo"
+          items={items}
+          baseColor="#212529"
+          menuColor="#fff"
+          buttonBgColor="#fff"
+          buttonTextColor="#111"
+          ease="power3.out"
         />
+
+        {/* FuzzyText Overlay di tengah */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className='flex flex-col items-center gap-6'>
+            <FuzzyText 
+              baseIntensity={0.09} 
+              hoverIntensity={0.2} 
+              enableHover={true}
+              fontSize='6rem'
+              fontWeight={900}
+            >
+              Welcome to
+            </FuzzyText>
+            <FuzzyText 
+              baseIntensity={0.09} 
+              hoverIntensity={0.2} 
+              enableHover={true}
+              fontSize="8rem"
+              fontWeight={900}
+            >
+              Hash-X15
+            </FuzzyText>
+            <button className='bg-gray-400 hover:bg-gray-600 rounded-xl'>
+              <p className='p-3 font-bold'>Get Started</p>
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Navigation */}
-      <CardNav
-        logo={logo}
-        logoAlt="Company Logo"
-        items={items}
-        baseColor="#212529"
-        menuColor="#fff"
-        buttonBgColor="#fff"
-        buttonTextColor="#111"
-        ease="power3.out"
-      />
-
-      {/* FuzzyText Overlay di tengah */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <FuzzyText 
-          baseIntensity={0.09} 
-          hoverIntensity={0.2} 
-          enableHover={true}
-        >
-          Hash-X15
-        </FuzzyText>
+      {/* Section 2: GridScan Background */}
+      <div className="relative w-full min-h-screen -mt-[10vh] bg-black">
+        <div className="absolute inset-0 w-full h-full">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={3}
+            linesColor="#fff"
+            gridScale={0.1}
+            scanColor="#FF9FFC"
+            scanOpacity={0.4}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+          />
+        </div>
+        {/* Konten untuk section GridScan bisa ditambahkan di sini */}
       </div>
     </div>
   );
