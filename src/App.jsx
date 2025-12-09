@@ -1,13 +1,16 @@
 import React from 'react';
+import { useState } from 'react';
 import CardNav from './components/CardNav';
 import { GoArrowUpRight } from "react-icons/go";
 import logo from "./assets/logo.png"
 import LetterGlitch from './components/LetterGlitch';
 import FuzzyText from './components/FuzzyText';
 import {GridScan} from './components/GridScan';
-
+import FileUploader from './components/FileUploader'
+import { Upload, File, X, Check } from 'lucide-react';
 
 const App = () => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const items = [
     {
       label: "About",
@@ -41,12 +44,11 @@ const App = () => {
 
   return (
     <div className="relative w-full overflow-hidden flex flex-col">
-      {/* Section 1: Hero/Header dengan LetterGlitch */}
+      {/* Section 1*/}
       <div className="relative w-full min-h-screen">
-        {/* Background LetterGlitch */}
         <div className="absolute inset-0 w-full h-[90%]">
           <LetterGlitch
-            glitchSpeed={40}
+            glitchSpeed={60}
             centerVignette={true}
             outerVignette={true}
             smooth={true}
@@ -65,7 +67,7 @@ const App = () => {
           ease="power3.out"
         />
 
-        {/* FuzzyText Overlay di tengah */}
+        {/* FuzzyText*/}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className='flex flex-col items-center gap-6'>
             <FuzzyText 
@@ -87,13 +89,13 @@ const App = () => {
               Hash-X15
             </FuzzyText>
             <button className='bg-gray-400 hover:bg-gray-600 rounded-xl'>
-              <p className='p-3 font-bold'>Get Started</p>
+              {/* <p className='p-3 font-bold'>Get Started</p> */}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Section 2: GridScan Background */}
+      {/* Section 2*/}
       <div className="relative w-full min-h-screen -mt-[10vh] bg-black">
         <div className="absolute inset-0 w-full h-full">
           <GridScan
@@ -109,7 +111,9 @@ const App = () => {
             noiseIntensity={0.01}
           />
         </div>
-        {/* Konten untuk section GridScan bisa ditambahkan di sini */}
+        <div className="relative z-10 flex flex-col top-48 items-center justify-center">
+          <FileUploader />
+        </div>
       </div>
     </div>
   );
