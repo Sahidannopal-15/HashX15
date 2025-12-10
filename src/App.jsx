@@ -8,9 +8,14 @@ import FuzzyText from './components/FuzzyText';
 import {GridScan} from './components/GridScan';
 import FileUploader from './components/FileUploader'
 import { Upload, File, X, Check } from 'lucide-react';
+import SelectAlgorithm from "./components/SelectAlgorithm";
 
 const App = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [algorithm, setAlgorithm] = useState("");
+   const handleFileSelect = (files) => {
+    setSelectedFiles(files);
+   }
   const items = [
     {
       label: "About",
@@ -112,10 +117,33 @@ const App = () => {
           />
         </div>
         <div className="relative z-10 flex flex-col top-48 items-center justify-center">
-          <FileUploader />
+  <FileUploader onFileSelect={handleFileSelect} />
+
+  {/* Algorithm Selector - Show only when files are selected */}
+  {selectedFiles.length > 0 && (
+    <div className="space-y-8 animate-fadeIn">
+      {/* Divider */}
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-700"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="px-4 bg-black text-gray-500 text-sm">
+            Step 2: Select Algorithm
+          </span>
         </div>
       </div>
+
+      {/* Algorithm Selector */}
+      <SelectAlgorithm 
+        algorithm={algorithm}
+        setAlgorithm={setAlgorithm}
+      />
     </div>
+  )}
+</div>
+</div>
+</div>
   );
 };
 
