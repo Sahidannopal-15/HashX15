@@ -12,7 +12,7 @@ import SelectAlgorithm from "./components/SelectAlgorithm";
 import HashButton from './components/HashButton';
 import Result from './components/Result';
 import AlgorithmEducation from './components/AlgorithmEducation';
-import { Footer } from 'flowbite-react';
+import Footer from './components/Footer';
 
 const App = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -162,9 +162,7 @@ const App = () => {
   </div>
   </div>
   <AlgorithmEducation />
-  <footer>
-    <Footer />
-  </footer>
+  <Footer />
 </div>
   );
 };
