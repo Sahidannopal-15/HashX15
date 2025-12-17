@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CardNav from './components/CardNav';
-import logo from "./assets/logo.png";
+/* import CardNav from './components/CardNav';
+import logo from "./assets/logo.png"; */
 import LetterGlitch from './components/LetterGlitch';
 import FuzzyText from './components/FuzzyText';
 import { GridScan } from './components/GridScan';
@@ -57,9 +57,8 @@ const App = () => {
 
   return (
     <div className="relative w-full overflow-hidden">
-      {/* Section 1: Hero */}
+      {/* Section 1 */}
       <section className="relative w-full min-h-screen bg-black">
-        {/* Background */}
         <div className="absolute inset-0 w-full h-full">
           <GridScan
             lineThickness={1.4}
@@ -73,8 +72,6 @@ const App = () => {
             noiseIntensity={0.008}
           />
         </div>
-
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black pointer-events-none" />
 
         {/* Navigation */}
@@ -88,8 +85,6 @@ const App = () => {
           buttonTextColor="#111"
           ease="power3.out"
         /> */}
-
-        {/* Hero Content */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className='flex flex-col items-center gap-8'>
             <FuzzyText
@@ -120,95 +115,77 @@ const App = () => {
       </section>
 
       {/* Section 2 */}
-      <section className="relative w-full bg-black">
-        {/* Background */}
-        <div className="absolute inset-0 w-full h-full">
-          <LetterGlitch
-            glitchSpeed={100}
-            centerVignette={true}
-            outerVignette={false}
-            smooth={false}
-            glitchColors={['#A855F7', '#EC4899', '#8B5CF6']}
-          />
-        </div>
+<section className="relative w-full bg-black">
+  <div className="absolute inset-0 w-full h-full">
+    <LetterGlitch
+      glitchSpeed={120}
+      centerVignette={false}
+      outerVignette={true}
+      smooth={false}
+      glitchColors={['#A855F7', '#8B5CF6']}
+    />
+  </div>
 
-        {/* Gradient*/}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/60 pointer-events-none" />
-
-        {/* Content */}
-        <div className="relative z-10 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-12">
-            {/* File Uploader */}
-            <div className="transition-all duration-500 ease-out">
-              <FileUploader onFileSelect={handleFileSelect} />
+  <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 pointer-events-none" />
+  <div className="relative z-10 py-16 px-4">
+    <div className="max-w-4xl mx-auto space-y-10">
+      <FileUploader onFileSelect={handleFileSelect} />
+      {selectedFiles.length > 0 && (
+        <div className="space-y-10">
+          <div className="relative my-6">
+            <div className="h-px bg-purple-500/20 w-full"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <span className="px-5 py-1.5 bg-black text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">]
+                Step 2: Select Algorithm
+              </span>
             </div>
-
-            {/* Algorithm Selector */}
-            {selectedFiles.length > 0 && (
-              <div className="space-y-12 animate-fadeIn">
-                {/* Divider */}
-                <div className="relative my-8">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-purple-500/30"></div>
-                  </div>
-                  <div className="relative flex justify-center">
-                    <span className="px-6 py-2 bg-black text-purple-400 text-sm font-semibold rounded-full border border-purple-500/30">
-                      Step 2: Select Algorithm
-                    </span>
-                  </div>
-                </div>
-
-                {/*Algorithm Selector*/}
-                <SelectAlgorithm
-                  algorithm={algorithm}
-                  setAlgorithm={setAlgorithm}
-                />
-
-                {/* Hash Button*/}
-                {algorithm && (
-                  <div className="animate-fadeIn">
-                    {/* Divider */}
-                    <div className="relative my-8">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-pink-500/30"></div>
-                      </div>
-                      <div className="relative flex justify-center">
-                        <span className="px-6 py-2 bg-black text-pink-400 text-sm font-semibold rounded-full border border-pink-500/30">
-                          Step 3: Calculate Hash
-                        </span>
-                      </div>
-                    </div>
-
-                    <HashButton
-                      files={selectedFiles}
-                      algorithm={algorithm}
-                      onHashComplete={handleHashComplete}
-                    />
-                  </div>
-                )}
-
-                {/* Results */}
-                {hashResults.length > 0 && (
-                  <div className="animate-fadeIn">
-                    <div className="relative my-8">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-green-500/30"></div>
-                      </div>
-                      <div className="relative flex justify-center">
-                        <span className="px-6 py-2 bg-black text-green-400 text-sm font-semibold rounded-full border border-green-500/30">
-                          Results
-                        </span>
-                      </div>
-                    </div>
-
-                    <Result results={hashResults} />
-                  </div>
-                )}
-              </div>
-            )}
           </div>
+
+          <SelectAlgorithm
+            algorithm={algorithm}
+            setAlgorithm={setAlgorithm}
+          />
+
+          {/* Hash Button */}
+          {algorithm && (
+            <div>
+              <div className="relative my-6">
+                <div className="h-px bg-pink-500/20 w-full"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <span className="px-5 py-1.5 bg-black text-pink-400 text-xs font-semibold rounded-full border border-pink-500/20">
+                    Step 3: Calculate Hash
+                  </span>
+                </div>
+              </div>
+
+              <HashButton
+                files={selectedFiles}
+                algorithm={algorithm}
+                onHashComplete={handleHashComplete}
+              />
+            </div>
+          )}
+
+          {/* Result*/}
+          {hashResults.length > 0 && (
+            <div>
+              <div className="relative my-6">
+                <div className="h-px bg-green-500/20 w-full"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <span className="px-5 py-1.5 bg-black text-green-400 text-xs font-semibold rounded-full border border-green-500/20">
+                    Results
+                  </span>
+                </div>
+              </div>
+
+              <Result results={hashResults} />
+            </div>
+          )}
         </div>
-      </section>
+      )}
+    </div>
+  </div>
+</section>
 
       {/* Section 3*/}
       <AlgorithmEducation />
