@@ -282,7 +282,7 @@ export const GridScan = ({
   lineStyle = 'solid',
   lineJitter = 0.1,
   scanDirection = 'pingpong',
-  enablePost = true,
+  enablePost = false,
   bloomIntensity = 0,
   bloomThreshold = 0,
   bloomSmoothing = 0,
@@ -421,7 +421,7 @@ export const GridScan = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
     rendererRef.current = renderer;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -508,51 +508,39 @@ export const GridScan = ({
     window.addEventListener('resize', onResize);
 
     let last = performance.now();
-    const tick = () => {
-      const now = performance.now();
-      const dt = Math.max(0, Math.min(0.1, (now - last) / 1000));
-      last = now;
+   // Ganti fungsi tick lama dengan ini
+let lastFrameTime = 0;
+const fpsLimit = 18; // Batasi ke 30 FPS agar GPU tidak meledak
 
-      lookCurrent.current.copy(
-        smoothDampVec2(lookCurrent.current, lookTarget.current, lookVel.current, smoothTime, maxSpeed, dt)
-      );
+const tick = () => {
+  const now = performance.now();
+  const delta = now - lastFrameTime;
 
-      const tiltSm = smoothDampFloat(
-        tiltCurrent.current,
-        tiltTarget.current,
-        { v: tiltVel.current },
-        smoothTime,
-        maxSpeed,
-        dt
-      );
-      tiltCurrent.current = tiltSm.value;
-      tiltVel.current = tiltSm.v;
+  // Jika belum waktunya render frame baru, lewati
+  if (delta < (1000 / fpsLimit)) {
+    rafRef.current = requestAnimationFrame(tick);
+    return;
+  }
+  
+  lastFrameTime = now;
+  const dt = Math.max(0, Math.min(0.1, delta / 1000));
 
-      const yawSm = smoothDampFloat(
-        yawCurrent.current,
-        yawTarget.current,
-        { v: yawVel.current },
-        smoothTime,
-        maxSpeed,
-        dt
-      );
-      yawCurrent.current = yawSm.value;
-      yawVel.current = yawSm.v;
-
-      const skew = new THREE.Vector2(lookCurrent.current.x * skewScale, -lookCurrent.current.y * yBoost * skewScale);
-      material.uniforms.uSkew.value.set(skew.x, skew.y);
-      material.uniforms.uTilt.value = tiltCurrent.current * tiltScale;
-      material.uniforms.uYaw.value = THREE.MathUtils.clamp(yawCurrent.current * yawScale, -0.6, 0.6);
-
-      material.uniforms.iTime.value = now / 1000;
-      renderer.clear(true, true, true);
-      if (composerRef.current) {
-        composerRef.current.render(dt);
-      } else {
-        renderer.render(scene, camera);
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
+  // --- Sisa kode animasi Anda tetap sama di bawah ini ---
+  lookCurrent.current.copy(
+    smoothDampVec2(lookCurrent.current, lookTarget.current, lookVel.current, smoothTime, maxSpeed, dt)
+  );
+  // ... (sampai renderer.render)
+  
+  material.uniforms.iTime.value = now / 1000;
+  renderer.clear(true, true, true);
+  if (composerRef.current) {
+    composerRef.current.render(dt);
+  } else {
+    renderer.render(scene, camera);
+  }
+  
+  rafRef.current = requestAnimationFrame(tick);
+};
     rafRef.current = requestAnimationFrame(tick);
 
     return () => {

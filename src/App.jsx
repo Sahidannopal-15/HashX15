@@ -65,7 +65,7 @@ const App = () => {
             scanColor="#EC4899"
             scanOpacity={1}
             enablePost
-            bloomIntensity={0.4}
+            bloomIntensity={0}
             chromaticAberration={0.002}
             noiseIntensity={0.008}
           />
@@ -75,7 +75,7 @@ const App = () => {
           <div className='flex flex-col items-center gap-8'>
             <FuzzyText
               baseIntensity={0.09}
-              hoverIntensity={0.2}
+              hoverIntensity={0}
               enableHover={true}
               fontSize='clamp(3rem, 8vw, 6rem)'
               fontWeight={900}
