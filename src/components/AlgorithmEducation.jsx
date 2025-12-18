@@ -86,19 +86,22 @@ const AlgorithmEducation = () => {
   ];
 
   return (
-    <div className="relative w-full bg-gradient-to-b from-black via-gray-900 to-black py-20 px-4">
-      <div className="absolute inset-0 opacity-5">
+    <div className="relative w-full bg-gradient-to-b from-black via-gray-900 to-black py-20 px-4
+                [contain:layout_paint]
+                [will-change:transform]">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div 
           className="h-full w-full" 
           style={{
             backgroundImage: `linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
                              linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
+            backgroundSize: '50px 50px',
+            willChange: 'transform'
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+     <div className="relative z-10 max-w-7xl mx-auto select-text">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Choose the Right Algorithm
@@ -119,7 +122,7 @@ const AlgorithmEducation = () => {
                   bg-gray-900/60 border ${algo.borderColor}
                   rounded-2xl p-5
                   hover:border-opacity-100
-                  transition-colors duration-200
+                  transition-[border-color] duration-200
                 `}
               >
                 <div className="text-center mb-5">
@@ -201,7 +204,7 @@ const AlgorithmEducation = () => {
                 {comparisonData.map((row, index) => (
                   <tr
                     key={index}
-                    className="border-t border-gray-700 hover:bg-gray-800/30 transition-colors duration-150"
+                    className="border-t border-gray-700 hover:bg-gray-800/20 transition-[background-color] duration-150"
                   >
                     <td className="p-3 text-gray-300 font-medium text-sm">{row.feature}</td>
                     <td className="p-3 text-center text-gray-200 text-sm">{row.sha256}</td>

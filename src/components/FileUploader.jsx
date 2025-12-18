@@ -147,7 +147,7 @@ const FileUploader = ({
               {isDragging ? 'Drop files here' : 'Drag & drop files here'}
             </p>
             <p className="text-sm text-gray-400">
-              or <span className="text-purple-400 font-medium hover:text-purple-300 transition-colors">browse</span> to choose files
+              or <span className="text-purple-400 font-medium">browse</span> to choose files
             </p>
           </div>
 

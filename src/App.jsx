@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-/* import CardNav from './components/CardNav';
-import logo from "./assets/logo.png"; */
 import LetterGlitch from './components/LetterGlitch';
 import FuzzyText from './components/FuzzyText';
 import { GridScan } from './components/GridScan';
@@ -73,18 +71,6 @@ const App = () => {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black pointer-events-none" />
-
-        {/* Navigation */}
-        {/* <CardNav
-          logo={logo}
-          logoAlt="Company Logo"
-          items={items}
-          baseColor="#212529"
-          menuColor="#fff"
-          buttonBgColor="#fff"
-          buttonTextColor="#111"
-          ease="power3.out"
-        /> */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className='flex flex-col items-center gap-8'>
             <FuzzyText
@@ -116,10 +102,10 @@ const App = () => {
 
       {/* Section 2 */}
 <section className="relative w-full bg-black">
-  <div className="absolute inset-0 w-full h-full">
+  <div className="absolute inset-0 w-full h-[46vh]">
     <LetterGlitch
       glitchSpeed={120}
-      centerVignette={false}
+      centerVignette={true}
       outerVignette={true}
       smooth={false}
       glitchColors={['#A855F7', '#8B5CF6']}
