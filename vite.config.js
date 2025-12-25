@@ -3,5 +3,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [tailwindcss()],
-   base: '/HashX15/'
+   base: '/HashX15/',
+    build: {
+    outDir: 'dist'
+  }
 })
